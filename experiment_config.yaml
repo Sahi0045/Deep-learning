@@ -1,0 +1,72 @@
+# experiment_config.yaml — Reproducible experiment configuration
+# All paths, dataset grouping settings, model architectures, and training
+# hyperparameters are controlled from this file.
+
+experiment:
+  name: "airtlab_violence_action_benchmark"
+  description: >
+    Scene-grouped benchmark comparing a Custom 2D Residual CNN baseline,
+    EfficientNetV2B0 transfer learning, and spatio-temporal Video models
+    (CNN-LSTM and 3D CNN) on the peer-reviewed AIRTLab Violence Detection
+    Dataset (Bianculli et al., Data in Brief, 2020; Sernani et al., IEEE Access, 2021).
+  random_seed: 42
+
+dataset:
+  name: "AIRTLab Violence Detection Dataset"
+  doi: "10.1016/j.dib.2020.106587"
+  license: "CC-BY-4.0"
+  source_url: "https://github.com/airtlab/A-Dataset-for-Automatic-Violence-Detection-in-Videos"
+  dataset_dir: "datasets/airtlab_violence"
+  manifest_path: "datasets/airtlab_violence/manifest.csv"
+  train_path: "training_data"
+  model_dir: "checkpoints"
+  results_dir: "results"
+  logs_dir: "logs"
+  image_size: 128
+  num_channels: 3
+  sequence_length: 8
+  split_strategy: "grouped_by_scene"
+  group_column: "scene_id"
+  train_split: 0.70
+  validation_split: 0.15
+  test_split: 0.15
+  exclude_synthetic: true
+  classes:
+    - "nonviolent"
+    - "unarmed_assault"
+    - "armed_assault"
+
+model:
+  conv_layers:
+    - [32, 3]
+    - [64, 3]
+    - [128, 3]
+    - [256, 3]
+  pool_size: [2, 2]
+  conv_dropout: 0.20
+  fc_dropout: 0.40
+  fc_units: [256, 128]
+  use_batch_norm: true
+  l2_lambda: 0.0001
+  pretrained_weights_path: "checkpoints/pretrained/efficientnetv2-b0_notop.h5"
+  fine_tune_at: 180
+  lstm_units: 128
+  conv3d_filters: [32, 64, 128]
+
+training:
+  epochs: 25
+  video_epochs: 25
+  batch_size: 32
+  video_batch_size: 16
+  learning_rate: 0.001
+  lr_decay_factor: 0.5
+  lr_patience: 4
+  min_lr: 0.000001
+  early_stop_patience: 8
+  optimizer: "adam"
+  augmentation: true
+  horizontal_flip: true
+  vertical_flip: false
+  zoom_range: 0.10
+  save_best_only: true
+  checkpoint_metric: "val_accuracy"

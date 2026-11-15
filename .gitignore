@@ -1,0 +1,37 @@
+# Python bytecode / caches
+__pycache__/
+*.py[cod]
+
+# ── Large / regenerable data ──────────────────────────────────────────────
+# Re-create everything below with:  python3 download_real_data.py
+datasets/airtlab_violence/non-violent/
+datasets/airtlab_violence/violent/
+datasets/airtlab_violence/frames/
+datasets/airtlab_violence/manifest.csv
+training_data/
+synthetic_demo_data/
+
+# ── Model checkpoints & pretrained weights (large) ────────────────────────
+# Re-train with:  python3 train.py --model_type all
+# (EfficientNetV2 ImageNet weights auto-download on first use if the local file
+#  at checkpoints/pretrained/ is absent.)
+checkpoints/*.keras
+checkpoints/pretrained/
+
+# ── Large legacy binaries (TF1 era) ────────────────────────────────────────
+legacy/trained-model
+legacy/trained-model.meta
+legacy/best_model.keras
+
+# ── Run outputs (plots, reports, logs, comparison artefacts) ───────────────
+results/
+logs/
+
+# ── Editor / OS ────────────────────────────────────────────────────────────
+.vscode/
+.DS_Store
+*.swp
+*~
+
+# Original (10-class) project reports - describe the legacy project, kept out of this repo
+CPSC 8810-Project Report*.pdf

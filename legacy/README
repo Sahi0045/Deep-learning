@@ -1,0 +1,51 @@
+A Deep Learning Model to Detect Images with Cyberbully Actions using TensorFlow
+
+Project Team:
+1. Mihir Phatak (mphatak@clemson.edu)
+2. Netra Inamdar (ninamda@clemson.edu)
+
+The network structure for our classifier is as below:
+1. Read and pre-process images in training dataset
+2. Conv Layer 1 (Filter Dimension: 3*3, no. of channels: 3, no. of filters: 32) including
+Maximum pooling and Rectified Linear Unit activation function
+3. Conv Layer 2 (Filter Dimension: 3*3, no. of channels: 3, no. of filters: 32) including
+Maximum pooling and Rectified Linear Unit activation function
+4. Conv Layer 3 (Filter Dimension: 3*3, no. of channels: 3, no. of filters: 64) including
+Maximum pooling and Rectified Linear Unit activation function
+5. Flattening layer to Filter Dimensioncreate a single dimensional tensor
+6. Fully connected layer 1 with Rectified Linear Unit (size- 128)
+7. Fully connected layer 2(filter size- 128)
+8. Softmax to output of fully connected layer (for probability of each class)
+9. Output string (corresponding to the highest probability obtained through above)
+
+###############################
+Testing the model:
+###############################
+
+After training the model with ‘training.py’ using images from training dataset, the model is saved
+in file ‘trained-model’ and 'trained-model.meta' in the current directory, which is used by ‘test.py’ for testing.
+For testing, ‘test.py’ receives the file name of an image as an argument.
+
+##########For Testing Use#######
+Eg- python test.py an_image.jpg
+################################
+
+The output is result of classification, one of the 10 class strings.
+File description:
+1) reading_data.py : This is a python code to receive and pre-process the training images.
+2) training.py : This is a python code for training the model as described above.
+3) test.py : This is a python code to test the model using trained model from ‘training.py’.
+4) CPSC 8810-Project Report : This is a file containing midterm project report for CPSC 8810 project.
+5) trained-model : Trained Model
+6) trained-model.meta : Trained Model Graph Metadata
+7) README : This file containing the brief description of repository contents
+
+
+#################################
+Reference papers:
+#################################
+
+
+https://www.researchgate.net/publication/325116934_Image_classification_using_Deep_learning
+https://arxiv.org/pdf/1311.2901v3.pdf
+https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf
